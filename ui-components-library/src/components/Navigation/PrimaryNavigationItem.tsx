@@ -3,58 +3,62 @@ import { NavLink } from 'react-router';
 import { makeStyles } from 'tss-react/mui';
 import { Typography } from '@mui/material';
 
-const useStyles = makeStyles()((theme) => ({
-  navItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.palette.text.secondary,
-    gap: theme.spacing(1),
-    textDecoration: 'none',
-  },
-  iconWrapper: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
-    padding: theme.spacing(2),
-    borderRadius: 4,
-    display: 'flex',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    overflow: 'hidden',
-    '&:hover': {
-      backgroundColor: theme.palette.neutral.white,
-      border: `1px solid ${theme.palette.neutral[40]}`,
+const useStyles = makeStyles()((theme) => {
+  // Omit '@font-face' from typography.caption
+  const { '@font-face': _ignore, ...caption } = theme.typography.caption;
+  return {
+    navItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textDecoration: 'none',
+      color: theme.palette.text.secondary,
+      gap: theme.spacing(0.5), // 4px gap between icon and label
+    },
+    iconWrapper: {
+      width: theme.spacing(8),       // e.g., 32px if spacing unit is 4px
+      height: theme.spacing(8),
+      padding: theme.spacing(2),       // 8px padding
+      borderRadius: theme.shape.borderRadius, // use theme token for border radius (usually 4px)
+      display: 'flex',
+      justifyContent: 'center',
+      alignSelf: 'center',
+      alignItems: 'center',
+      boxSizing: 'border-box',
+      overflow: 'hidden',
+      transition: 'all 0.2s ease-in-out', // smoother hover effect
+      '&:hover': {
+        backgroundColor: theme.palette.background.paper,
+        border: `1px solid ${theme.palette.divider}`,
+        boxShadow: '0px 2px 1px -1px rgba(28, 28, 28, 0.08)',
+      },
+    },
+    activeIconWrapper: {
+      backgroundColor: theme.palette.background.paper,
+      border: `1px solid ${theme.palette.divider}`,
       boxShadow: '0px 2px 1px -1px rgba(28, 28, 28, 0.08)',
     },
-  },
-  activeIconWrapper: {
-    backgroundColor: theme.palette.neutral.white,
-    border: `1px solid ${theme.palette.neutral[40]}`,
-    boxShadow: '0px 2px 1px -1px rgba(28, 28, 28, 0.08)',
-  },
-  icon: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    fontSize: 16,
-    color: theme.palette.neutral[60],
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  label: {
-    fontSize: 11,
-    lineHeight: '14px',
-    letterSpacing: '0.22px',
-    color: theme.palette.neutral[70],
-    width: '100%',
-    textAlign: 'center',
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: 400,
-  },
-}));
+    icon: {
+      width: theme.spacing(4), // e.g., 16px if spacing unit is 4px
+      height: theme.spacing(4),
+      fontSize: 16,
+      color: theme.palette.text.secondary,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    label: {
+      ...caption,
+      fontSize: 11,
+      lineHeight: '14px',
+      letterSpacing: '0.22px',
+      color: theme.palette.text.secondary,
+      textAlign: 'center',
+      width: '100%',
+    },
+  };
+});
 
 interface PrimaryNavigationItemProps {
   icon: React.ReactNode;
@@ -72,7 +76,7 @@ export const PrimaryNavigationItem: React.FC<PrimaryNavigationItemProps> = ({
   return (
     <NavLink to={to} className={classes.navItem}>
       {({ isActive }) => (
-        <div className={cx(classes.navItem)}>
+        <div className={classes.navItem}>
           <div
             className={cx(
               classes.iconWrapper,

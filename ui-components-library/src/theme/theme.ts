@@ -101,6 +101,19 @@ declare module '@mui/material/styles' {
       30: string;
     };
   }
+  interface TypographyVariants {
+    caption2: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    caption2?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material' {
+  interface TypographyPropsVariantOverrides {
+    caption2: true;
+  }
 }
 
 export const theme = createTheme({
@@ -181,6 +194,13 @@ export const theme = createTheme({
       fontWeight: 500,
       lineHeight: '14px',
       letterSpacing: '0.11px',
+    },
+
+    caption2: {
+      fontSize: '11px',
+      fontWeight: 500,
+      lineHeight: '14px',
+      letterSpacing: '0.22px',
     },
 
     button: {

@@ -10,6 +10,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { PrimaryNavigationItem } from './PrimaryNavigationItem';
+import { AppLogo } from '../AppLogo';
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -23,15 +24,17 @@ const useStyles = makeStyles()((theme) => ({
   appIcon: {
     width: theme.spacing(8), // 32px
     height: theme.spacing(8), // 32px
-    borderRadius: theme.spacing(2), // 8px
+    borderRadius: theme.spacing(8), // 8px
     backgroundColor: theme.palette.primary.main,
     margin: theme.spacing(2, 'auto'),
   },
   nav: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     flex: 1,
-    gap: theme.spacing(2),
+    paddingTop: theme.spacing(6),
+    gap: theme.spacing(6),
   }
 }));
 
@@ -40,8 +43,8 @@ export const PrimaryNavigation: React.FC = () => {
 
   return (
     <Paper className={classes.root} elevation={0}>
-      <div className={classes.appIcon} />
       <nav className={classes.nav}>
+        <AppLogo className={classes.appIcon} />
         <PrimaryNavigationItem icon={<HomeIcon />} label="Home" to="/" />
         <PrimaryNavigationItem icon={<WorkIcon />} label="Work" to="/work" />
         <PrimaryNavigationItem icon={<TrackChangesIcon />} label="OKRs" to="/okrs" />

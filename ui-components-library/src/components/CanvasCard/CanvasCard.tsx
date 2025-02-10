@@ -9,7 +9,7 @@ import TeamNameChip from '../AttributeChip/AttributeChip';
 import { theme } from '../../theme/theme';
 import StatusChip from '../StatusChip/StatusChip';
 
-interface CanvasCardProps {
+export interface CanvasCardProps {
   type: 'Key Result' | 'Objective'; // extend as needed
   icon?: string;
   status?: 'planned' | 'in-progress';
